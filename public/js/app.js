@@ -1,18 +1,13 @@
 class AttractionList extends React.Component {
-    constructor(props) {
-        super(props)    ;
-
-        this.state = {
-            attractions: [],
-        };
-        this._handleAttractionUpVote = this._handleAttractionUpVote.bind(this);
-    }
+    state = {
+        attractions: [],
+    };
 
     componentDidMount() {
         this.setState({ attractions: Seed.attractions });
     }
 
-    _handleAttractionUpVote(attractionId) {
+    _handleAttractionUpVote = (attractionId) => {
         const nextAttractions = this.state.attractions.map((attraction) => {
             if(attraction.id === attractionId) {
                 return Object.assign({}, attraction, {
@@ -52,15 +47,9 @@ class AttractionList extends React.Component {
 }
 
 class Attraction extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this._handleUpVote = this._handleUpVote.bind(this);
-    }
-
-    _handleUpVote() {
-        this.props.onVote(this.props.id);
-    }
+    _handleUpVote = () => (
+        this.props.onVote(this.props.id)
+    );
 
     render() {
         return(
