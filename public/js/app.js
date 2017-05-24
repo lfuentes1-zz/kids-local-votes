@@ -5,7 +5,7 @@ class AttractionsDashboard extends React.Component {
                 attractionId: uuid.v4(),
                 attractionName:"Sea World",
                 attractionDescription:"SeaWorld San Antonio is a 250-acre marine mammal park, oceanarium, and animal theme park.  SeaWorld San Antonio is a 250-acre marine mammal park, oceanarium, and animal theme park.",
-                attractionUrl:"https://seaworld.com/san-antonio/",
+                attractionUrl:"http://seaworld.com/san-antonio/",
                 attractionImageUrl:"images/attractions/image-seaworldsalogo.png",
                 attractionVoteCount:"32",
                 attractionLastVoteAvatarUrl:"images/avatars/veronika.jpg",
@@ -15,7 +15,7 @@ class AttractionsDashboard extends React.Component {
                 attractionId: uuid.v4(),
                 attractionName:"SA Zoo",
                 attractionDescription:"The 35-acre zoo has a collection of over 3,500 animals representing 750 species.",
-                attractionUrl:"https://sazoo.org/",
+                attractionUrl:"http://sazoo.org/",
                 attractionImageUrl:"images/attractions/image-sanantoniozoo.png",
                 attractionVoteCount:"45",
                 attractionLastVoteAvatarUrl:"images/avatars/daniel.jpg",
@@ -37,15 +37,26 @@ class AttractionsDashboard extends React.Component {
 }
 
 class ToggleableAttractionForm extends React.Component {
+    state = {
+        isOpen: false,
+    };
+
+    _handleFormOpen = () => {
+        this.setState({ isOpen: true });
+    };
+
     render() {
-        if (this.props.isOpen) {
+        if (this.state.isOpen) {
             return (
                 <AttractionForm />
             );
         } else {
             return (
                 <div className="ui basic content center aligned segment">
-                    <button className="ui basic button icon">
+                    <button
+                        className="ui basic button icon"
+                        onClick={this._handleFormOpen}
+                    >
                         <i className="plus icon" />
                     </button>
                 </div>
@@ -78,10 +89,15 @@ class EditableAttractionList extends React.Component {
 }
 
 class EditableAttraction extends React.Component {
+    state = {
+        editFormOpen: false,
+    };
+
     render() {
         if (this.props.editFormOpen) {
             return (
                 <AttractionForm
+                    attractionId={this.props.attractionId}
                     attractionName={this.props.attractionName}
                     attractionDescription={this.props.attractionDescription}
                     attractionUrl={this.props.attractionUrl}
@@ -91,6 +107,7 @@ class EditableAttraction extends React.Component {
         } else {
             return (
                 <Attraction 
+                    attractionId={this.props.attractionId}
                     attractionName={this.props.attractionName}
                     attractionDescription={this.props.attractionDescription}
                     attractionUrl={this.props.attractionUrl}
