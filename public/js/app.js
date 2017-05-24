@@ -37,7 +37,7 @@ class EditableAttractionList extends React.Component {
                     key="1"
                     attractionId="1"
                     attractionName="Sea World"
-                    attractionDescription="Sea World Description"
+                    attractionDescription="SeaWorld San Antonio is a 250-acre marine mammal park, oceanarium, and animal theme park.  SeaWorld San Antonio is a 250-acre marine mammal park, oceanarium, and animal theme park."
                     attractionUrl="https://seaworld.com/san-antonio/"
                     attractionImageUrl="images/attractions/image-seaworldsalogo.png"
                     attractionVoteCount="32"
@@ -50,7 +50,7 @@ class EditableAttractionList extends React.Component {
                     key="2"
                     attractionId="2"
                     attractionName="SA Zoo"
-                    attractionDescription="SA Zoo Description"
+                    attractionDescription="The 35-acre zoo has a collection of over 3,500 animals representing 750 species."
                     attractionUrl="https://sazoo.org/"
                     attractionImageUrl="images/attractions/image-sanantoniozoo.png"
                     attractionVoteCount="45"
@@ -140,9 +140,9 @@ class Attraction extends React.Component {
                 </div>
                 <div className="middle aligned content">
                     <div className="header">
-                        <a >
-                            <i className="large caret up icon" />
-                        </a>
+                        <span className="meta">
+                            Number of Likes:
+                        </span>
                         {this.props.attractionVoteCount}
                     </div>
                     <div className="description">
@@ -153,13 +153,13 @@ class Attraction extends React.Component {
                             {this.props.attractionDescription}
                         </p>
                     </div>
-                    <div className="extra">
-                        <span>Last vote by:</span>
-                        <img
-                            className="ui avatar image"
-                            src={this.props.attractionLastVoteAvatarUrl}
-                        />
-                        <span>{this.props.attractionLastVoteName}</span>
+                    <div className="extra content">
+                        <span className='right floated edit icon'>
+                            <i className='edit icon' />
+                        </span>
+                        <span className='right floated trash icon'>
+                            <i className='trash icon' />
+                        </span>
                     </div>
                 </div>
             </div> 
