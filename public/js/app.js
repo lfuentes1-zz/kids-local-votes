@@ -1,11 +1,36 @@
 class AttractionsDashboard extends React.Component {
+    state = {
+        attractions: [
+            {
+                attractionId: uuid.v4(),
+                attractionName:"Sea World",
+                attractionDescription:"SeaWorld San Antonio is a 250-acre marine mammal park, oceanarium, and animal theme park.  SeaWorld San Antonio is a 250-acre marine mammal park, oceanarium, and animal theme park.",
+                attractionUrl:"https://seaworld.com/san-antonio/",
+                attractionImageUrl:"images/attractions/image-seaworldsalogo.png",
+                attractionVoteCount:"32",
+                attractionLastVoteAvatarUrl:"images/avatars/veronika.jpg",
+                attractionLastVoteName:"Kristy",    
+            },
+            {
+                attractionId: uuid.v4(),
+                attractionName:"SA Zoo",
+                attractionDescription:"The 35-acre zoo has a collection of over 3,500 animals representing 750 species.",
+                attractionUrl:"https://sazoo.org/",
+                attractionImageUrl:"images/attractions/image-sanantoniozoo.png",
+                attractionVoteCount:"45",
+                attractionLastVoteAvatarUrl:"images/avatars/daniel.jpg",
+                attractionLastVoteName:"Daniel",
+            },
+        ],
+    };
+
     render() {
         return (
             <div>
-                <EditableAttractionList />
-                <ToggleableAttractionForm 
-                    isOpen={false}
+                <EditableAttractionList 
+                    attractions={this.state.attractions}
                 />
+                <ToggleableAttractionForm />
             </div>           
         );
     }
@@ -31,33 +56,22 @@ class ToggleableAttractionForm extends React.Component {
 
 class EditableAttractionList extends React.Component {
     render() {
+        const attractions= this.props.attractions.map((attraction) => (
+            <EditableAttraction
+                    key={"attraction-" + attraction.attractionId}
+                    attractionId={attraction.attractionId}
+                    attractionName={attraction.attractionName}
+                    attractionDescription={attraction.attractionDescription}
+                    attractionUrl={attraction.attractionUrl}
+                    attractionImageUrl={attraction.attractionImageUrl}
+                    attractionVoteCount={attraction.attractionVoteCount}
+                    attractionLastVoteAvatarUrl={attraction.attractionLastVoteAvatarUrl}
+                    attractionLastVoteName={attraction.attractionLastVoteName}
+            />
+        ));
         return (
             <div id="attractions" className="ui divided items">
-                <EditableAttraction
-                    key="1"
-                    attractionId="1"
-                    attractionName="Sea World"
-                    attractionDescription="SeaWorld San Antonio is a 250-acre marine mammal park, oceanarium, and animal theme park.  SeaWorld San Antonio is a 250-acre marine mammal park, oceanarium, and animal theme park."
-                    attractionUrl="https://seaworld.com/san-antonio/"
-                    attractionImageUrl="images/attractions/image-seaworldsalogo.png"
-                    attractionVoteCount="32"
-                    attractionLastVoteAvatarUrl="images/avatars/veronika.jpg"
-                    attractionLastVoteName="Kristy"
-                    editFormOpen={false}
-                />
-
-                <EditableAttraction
-                    key="2"
-                    attractionId="2"
-                    attractionName="SA Zoo"
-                    attractionDescription="The 35-acre zoo has a collection of over 3,500 animals representing 750 species."
-                    attractionUrl="https://sazoo.org/"
-                    attractionImageUrl="images/attractions/image-sanantoniozoo.png"
-                    attractionVoteCount="45"
-                    attractionLastVoteAvatarUrl="images/avatars/daniel.jpg"
-                    attractionLastVoteName="Daniel"
-                    editFormOpen={false}
-                />
+                {attractions}
             </div>
         );
     }
