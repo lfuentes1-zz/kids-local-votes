@@ -43,7 +43,7 @@ class EditableAttractionList extends React.Component {
                     attractionVoteCount="32"
                     attractionLastVoteAvatarUrl="images/avatars/veronika.jpg"
                     attractionLastVoteName="Kristy"
-                    editFormOpen={true}
+                    editFormOpen={false}
                 />
 
                 <EditableAttraction
@@ -94,8 +94,11 @@ class AttractionForm extends React.Component {
     render () {
         const submitText = this.props.attractionName ? "Update" : "Create";
         return (
-            <div className="ui centered card">
-                <div className="content">
+            <div className="item">
+                <div className="ui small image">
+                    <img src={this.props.attractionImageUrl} />
+                </div>
+                <div className="middle aligned content">
                     <div className="ui form">
                         <div className="field">
                             <label>Attraction Name</label>
@@ -123,7 +126,7 @@ class AttractionForm extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
         );
     }
 }
