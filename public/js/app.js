@@ -35,6 +35,27 @@ class AttractionsDashboard extends React.Component {
         });
     };
 
+    _handleEditFormSubmit = (attraction) => {
+        this._updateAttraction(attraction);
+    };
+
+    _updateAttraction = (attrs) => {
+        this.setState({
+            attractions: this.state.attractions.map((attraction) => {
+                if (attraction.attractionId === attrs.attractionId) {
+                    return Object.assign({}, attraction, {
+                        attractionName: attrs.attractionName,
+                        attractionDescription: attrs.attractionDescription,
+                        attractionUrl: attrs.attractionUrl,
+                        attractionImageUrl: attrs.attractionImageUrl,
+                    });
+                } else {
+                    return attraction;
+                }
+            }),
+        });
+    };
+
     render() {
         return (
             <div>
@@ -43,6 +64,7 @@ class AttractionsDashboard extends React.Component {
                 />
                 <EditableAttractionList 
                     attractions={this.state.attractions}
+                    onFormSubmit={this._handleEditFormSubmit}
                 />                
             </div>           
         );
