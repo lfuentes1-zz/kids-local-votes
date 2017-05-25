@@ -38,12 +38,12 @@ class AttractionsDashboard extends React.Component {
     render() {
         return (
             <div>
-                <EditableAttractionList 
-                    attractions={this.state.attractions}
-                />
                 <ToggleableAttractionForm 
                     onFormSubmit={this._handleCreateFormSubmit}
                 />
+                <EditableAttractionList 
+                    attractions={this.state.attractions}
+                />                
             </div>           
         );
     }
@@ -118,6 +118,27 @@ class EditableAttraction extends React.Component {
         editFormOpen: false,
     };
 
+    _handleEditClick = () => {
+        this._openForm();
+    };
+
+    _handleFormClose = () => {
+        this._closeForm();
+    };
+
+    _handleSubmit = (attraction) => {
+        this.props.onFormSubmit(attraction);
+        this.closeForm();
+    };
+
+    _closeForm = () => {
+        this.setState({ editFormOpen: false });
+    };
+
+    _openForm = () => {
+        this.setState({ editFormOpen: true });
+    };
+
     render() {
         if (this.props.editFormOpen) {
             return (
@@ -127,6 +148,8 @@ class EditableAttraction extends React.Component {
                     attractionDescription={this.props.attractionDescription}
                     attractionUrl={this.props.attractionUrl}
                     attractionImageUrl={this.props.attractionImageUrl}
+                    onFormSubmit={this._handleSubmit}
+                    onFormClose={this._handleFormClose}
                 />
             );
         } else {
@@ -140,6 +163,7 @@ class EditableAttraction extends React.Component {
                     attractionVoteCount={this.props.attractionVoteCount}
                     attractionLastVoteAvatarUrl={this.props.attractionLastVoteAvatarUrl}
                     attractionLastVoteName={this.props.attractionLastVoteName}
+                    onEditClick={this._handleEditClick}
                 />
             );
         }
@@ -265,7 +289,10 @@ class Attraction extends React.Component {
                         </p>
                     </div>
                     <div className="extra content">
-                        <span className='right floated edit icon'>
+                        <span
+                            className='right floated edit icon'
+                            onClick={this.props.onEditClick}
+                        >
                             <i className='edit icon' />
                         </span>
                         <span className='right floated trash icon'>
