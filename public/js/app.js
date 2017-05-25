@@ -103,6 +103,7 @@ class EditableAttractionList extends React.Component {
                     attractionVoteCount={attraction.attractionVoteCount}
                     attractionLastVoteAvatarUrl={attraction.attractionLastVoteAvatarUrl}
                     attractionLastVoteName={attraction.attractionLastVoteName}
+                    onFormSubmit={this.props.onFormSubmit}
             />
         ));
         return (
