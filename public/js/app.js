@@ -35,8 +35,8 @@ class AttractionsDashboard extends React.Component {
         });
     };
 
-    _handleEditFormSubmit = (attraction) => {
-        this._updateAttraction(attraction);
+    _handleEditFormSubmit = (attrs) => {
+        this._updateAttraction(attrs);
     };
 
     _updateAttraction = (attrs) => {
@@ -151,7 +151,7 @@ class EditableAttraction extends React.Component {
 
     _handleSubmit = (attraction) => {
         this.props.onFormSubmit(attraction);
-        this.closeForm();
+        this._closeForm();
     };
 
     _closeForm = () => {
@@ -163,7 +163,7 @@ class EditableAttraction extends React.Component {
     };
 
     render() {
-        if (this.props.editFormOpen) {
+        if (this.state.editFormOpen) {
             return (
                 <AttractionForm
                     attractionId={this.props.attractionId}
