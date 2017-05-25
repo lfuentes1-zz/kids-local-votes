@@ -45,10 +45,22 @@ class ToggleableAttractionForm extends React.Component {
         this.setState({ isOpen: true });
     };
 
+    _handleFormClose = () => {
+        this.setState({ isOpen: false });
+    };
+
+    _handleFormSubmit = (attraction) => {
+        this.props.onFormSubmit(attraction);
+        this.setState({ isOpen: false });
+    };
+
     render() {
         if (this.state.isOpen) {
             return (
-                <AttractionForm />
+                <AttractionForm
+                    onFormSubmit={this._handleFormSubmit}
+                    onFormClose={this._handleFormClose}
+                />
             );
         } else {
             return (
