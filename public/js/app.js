@@ -24,13 +24,26 @@ class AttractionsDashboard extends React.Component {
         ],
     };
 
+    _handleCreateFormSubmit = (attraction) => {
+        this._createAttraction(attraction);
+    };
+
+    _createAttraction = (attraction) => {
+        const a = helpers.newAttraction(attraction);
+        this.setState({
+            attractions: this.state.attractions.concat(a),
+        });
+    };
+
     render() {
         return (
             <div>
                 <EditableAttractionList 
                     attractions={this.state.attractions}
                 />
-                <ToggleableAttractionForm />
+                <ToggleableAttractionForm 
+                    onFormSubmit={this._handleCreateFormSubmit}
+                />
             </div>           
         );
     }
@@ -160,10 +173,10 @@ class AttractionForm extends React.Component {
     _handleSubmit = () => {
         this.props.onFormSubmit({
             attractionId: this.props.attractionId,
-            attractionName: this.props.attractionName,
-            attractionDescription: this.props.attractionDescription,
-            attractionUrl: this.props.attractionUrl,
-            attractionImageUrlChange: this.props.attractionImageUrl,
+            attractionName: this.state.attractionName,
+            attractionDescription: this.state.attractionDescription,
+            attractionUrl: this.state.attractionUrl,
+            attractionImageUrl: this.state.attractionImageUrl,
         });
     };
 
