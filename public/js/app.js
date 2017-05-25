@@ -122,30 +122,69 @@ class EditableAttraction extends React.Component {
 }
 
 class AttractionForm extends React.Component {
+    state = {
+        attractionName: this.props.attractionName || '',
+        attractionDescription: this.props.attractionDescription || '',
+        attractionUrl: this.props.attractionUrl || '',
+        attractionImageUrl: this.props.attractionImageUrl || '',
+    };
+
+    _handleAttractionNameChange = (e) => {
+        this.setState({ attractionName: e.target.value })
+    };
+
+    _handleAttractionDescriptionChange = (e) => {
+        this.setState({ attractionDescription: e.target.value })
+    };
+
+    _handleAttractionUrlChange = (e) => {
+        this.setState({ attractionUrl: e.target.value })
+    };
+
+    _handleAttractionImageUrlChange = (e) => {
+        this.setState({ attractionImageUrl: e.target.value })
+    };
+
     render () {
         const submitText = this.props.attractionName ? "Update" : "Create";
         return (
             <div className="item">
                 <div className="ui small image">
-                    <img src={this.props.attractionImageUrl} />
+                    <img src={this.state.attractionImageUrl} />
                 </div>
                 <div className="middle aligned content">
                     <div className="ui form">
                         <div className="field">
                             <label>Attraction Name</label>
-                            <input type="text" defaultValue={this.props.attractionName} />
+                            <input
+                                type="text"
+                                value={this.state.attractionName}
+                                onChange={this._handleAttractionNameChange}
+                            />
                         </div>
                         <div className="field">
                             <label>Attraction Description</label>
-                            <input type="text" defaultValue={this.props.attractionDescription} />
+                            <input
+                                type="text"
+                                value={this.state.attractionDescription}
+                                onChange={this._handleAttractionDescriptionChange}
+                            />
                         </div>
                         <div className="field">
                             <label>Attraction Website</label>
-                            <input type="text" defaultValue={this.props.attractionUrl} />
+                            <input
+                                type="text"
+                                value={this.state.attractionUrl}
+                                onChange={this._handleAttractionUrlChange}
+                            />
                         </div>
                         <div className="field">
                             <label>Attraction Image</label>
-                            <input type="text" defaultValue={this.props.attractionImageUrl} />
+                            <input
+                                type="text"
+                                value={this.state.attractionImageUrl}
+                                onChange={this._handleAttractionImageUrlChange}
+                            />
                         </div>
                         <div className="ui two bottom attached buttons">
                             <button className="ui basic blue button">
