@@ -145,8 +145,18 @@ class AttractionForm extends React.Component {
         this.setState({ attractionImageUrl: e.target.value })
     };
 
+    _handleSubmit = () => {
+        this.props.onFormSubmit({
+            attractionId: this.props.attractionId,
+            attractionName: this.props.attractionName,
+            attractionDescription: this.props.attractionDescription,
+            attractionUrl: this.props.attractionUrl,
+            attractionImageUrlChange: this.props.attractionImageUrl,
+        });
+    };
+
     render () {
-        const submitText = this.props.attractionName ? "Update" : "Create";
+        const submitText = this.props.attractionId ? "Update" : "Create";
         return (
             <div className="item">
                 <div className="ui small image">
@@ -187,10 +197,16 @@ class AttractionForm extends React.Component {
                             />
                         </div>
                         <div className="ui two bottom attached buttons">
-                            <button className="ui basic blue button">
+                            <button
+                                className="ui basic blue button"
+                                onClick={this._handleSubmit}
+                            >
                                 {submitText}
                             </button>
-                            <button className="ui basic red button">
+                            <button
+                                className="ui basic red button"
+                                onClick={this.props.onFormClose}
+                            >
                                 Cancel
                             </button>
                         </div>
