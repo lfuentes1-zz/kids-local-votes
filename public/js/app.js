@@ -56,6 +56,16 @@ class AttractionsDashboard extends React.Component {
         });
     };
 
+    _handleTrashClick = (attractionId) => {
+        this._deleteAttraction(attractionId);
+    };
+
+    _deleteAttraction = (attractionId) => {
+        this.setState({
+            attractions: this.state.attractions.filter(a => a.attractionId !== attractionId),
+        });
+    };
+
     render() {
         return (
             <div>
@@ -65,6 +75,7 @@ class AttractionsDashboard extends React.Component {
                 <EditableAttractionList 
                     attractions={this.state.attractions}
                     onFormSubmit={this._handleEditFormSubmit}
+                    onTrashClick={this._handleTrashClick}
                 />                
             </div>           
         );
@@ -126,6 +137,7 @@ class EditableAttractionList extends React.Component {
                     attractionLastVoteAvatarUrl={attraction.attractionLastVoteAvatarUrl}
                     attractionLastVoteName={attraction.attractionLastVoteName}
                     onFormSubmit={this.props.onFormSubmit}
+                    onTrashClick={this.props.onTrashClick}
             />
         ));
         return (
@@ -187,6 +199,7 @@ class EditableAttraction extends React.Component {
                     attractionLastVoteAvatarUrl={this.props.attractionLastVoteAvatarUrl}
                     attractionLastVoteName={this.props.attractionLastVoteName}
                     onEditClick={this._handleEditClick}
+                    onTrashClick={this.props.onTrashClick}
                 />
             );
         }
@@ -290,6 +303,10 @@ class AttractionForm extends React.Component {
 }
 
 class Attraction extends React.Component {
+    _handleTrashClick = () => {
+        this.props.onTrashClick(this.props.attractionId);
+    };
+
     render() {
         return(
             <div className="item">
@@ -318,7 +335,10 @@ class Attraction extends React.Component {
                         >
                             <i className='edit icon' />
                         </span>
-                        <span className='right floated trash icon'>
+                        <span
+                            className='right floated trash icon'
+                            onClick={this._handleTrashClick}
+                        >
                             <i className='trash icon' />
                         </span>
                     </div>
