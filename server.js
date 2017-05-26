@@ -21,96 +21,66 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/timers', (req, res) => {
+app.get('/api/attractions', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {
     res.setHeader('Cache-Control', 'no-cache');
     res.json(JSON.parse(data));
   });
 });
 
-app.post('/api/timers', (req, res) => {
+app.post('/api/attractions', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {
-    const timers = JSON.parse(data);
-    const newTimer = {
-      title: req.body.title,
-      project: req.body.project,
-      id: req.body.id,
-      elapsed: 0,
-      runningSince: null,
+    const attractions = JSON.parse(data);
+    const newAttraction = {
+      attractionId: req.body.attractionId,
+      attractionName: req.body.attractionName,
+      attractionDescription: req.body.attractionDescription,
+      attractionUrl: req.body.attractionUrl,
+      attractionImageUrl: req.body.attractionImageUrl,
+      attractionVoteCount: 0,
+      attractionLastVoteAvatarUrl: "public/images/avatars/neutral.png",
+      attractionLastVoteName: "no votes yet",
     };
-    timers.push(newTimer);
-    fs.writeFile(DATA_FILE, JSON.stringify(timers, null, 4), () => {
+    attractions.push(newAttraction);
+    fs.writeFile(DATA_FILE, JSON.stringify(attractions, null, 4), () => {
       res.setHeader('Cache-Control', 'no-cache');
-      res.json(timers);
+      res.json(attractions);
     });
   });
 });
 
-app.post('/api/timers/start', (req, res) => {
+app.put('/api/attractions', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {
-    const timers = JSON.parse(data);
-    timers.forEach((timer) => {
-      if (timer.id === req.body.id) {
-        timer.runningSince = req.body.start;
+    const attractions = JSON.parse(data);
+    attractions.forEach((attraction) => {
+      if (attraction.attractionId === req.body.attractionId) {
+        attraction.attractionName = req.body.attractionName;
+        attraction.attractionDescription = req.body.attractionDescription;
+        attraction.attractionUrl = req.body.attractionUrl;
+        attraction.attractionImageUrl = req.body.attractionImageUrl;
+        attraction.attractionVoteCount = req.body.attractionVoteCount;
       }
     });
-    fs.writeFile(DATA_FILE, JSON.stringify(timers, null, 4), () => {
+    fs.writeFile(DATA_FILE, JSON.stringify(attractions, null, 4), () => {
       res.json({});
     });
   });
 });
 
-app.post('/api/timers/stop', (req, res) => {
+app.delete('/api/attractions', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {
-    const timers = JSON.parse(data);
-    timers.forEach((timer) => {
-      if (timer.id === req.body.id) {
-        const delta = req.body.stop - timer.runningSince;
-        timer.elapsed += delta;
-        timer.runningSince = null;
-      }
-    });
-    fs.writeFile(DATA_FILE, JSON.stringify(timers, null, 4), () => {
-      res.json({});
-    });
-  });
-});
-
-app.put('/api/timers', (req, res) => {
-  fs.readFile(DATA_FILE, (err, data) => {
-    const timers = JSON.parse(data);
-    timers.forEach((timer) => {
-      if (timer.id === req.body.id) {
-        timer.title = req.body.title;
-        timer.project = req.body.project;
-      }
-    });
-    fs.writeFile(DATA_FILE, JSON.stringify(timers, null, 4), () => {
-      res.json({});
-    });
-  });
-});
-
-app.delete('/api/timers', (req, res) => {
-  fs.readFile(DATA_FILE, (err, data) => {
-    let timers = JSON.parse(data);
-    timers = timers.reduce((memo, timer) => {
-      if (timer.id === req.body.id) {
+    let attractions = JSON.parse(data);
+    attractions = attractions.reduce((memo, attraction) => {
+      if (attraction.attractionId === req.body.attractionId) {
         return memo;
       } else {
-        return memo.concat(timer);
+        return memo.concat(attraction);
       }
     }, []);
-    fs.writeFile(DATA_FILE, JSON.stringify(timers, null, 4), () => {
+    fs.writeFile(DATA_FILE, JSON.stringify(attractions, null, 4), () => {
       res.json({});
     });
   });
-});
-
-app.get('/molasses', (_, res) => {
-  setTimeout(() => {
-    res.end();
-  }, 5000);
 });
 
 app.listen(app.get('port'), () => {
