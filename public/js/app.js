@@ -66,7 +66,24 @@ class AttractionsDashboard extends React.Component {
         });
     };
 
+    _sortAttractions = () => {
+        const attractionComponents = 
+            this.state.attractions.sort((a,b) =>  {
+                const nameA = a.attractionName.toUpperCase();
+                const nameB = b.attractionName.toUpperCase();
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                return 0;
+            });
+        return attractionComponents;
+    };
+
     render() {
+        const attractions = this._sortAttractions();
         return (
             <div>
                 <ToggleableAttractionForm 
@@ -245,7 +262,7 @@ class AttractionForm extends React.Component {
         return (
             <div className="item">
                 <div className="ui small image">
-                    <img src={this.state.attractionImageUrl} />
+                    <img src={this.props.attractionImageUrl} />
                 </div>
                 <div className="middle aligned content">
                     <div className="ui form">
