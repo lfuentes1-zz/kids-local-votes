@@ -1,27 +1,17 @@
 class AttractionsDashboard extends React.Component {
     state = {
-        attractions: [
-            {
-                attractionId: uuid.v4(),
-                attractionName:"Sea World",
-                attractionDescription:"SeaWorld San Antonio is a 250-acre marine mammal park, oceanarium, and animal theme park.  SeaWorld San Antonio is a 250-acre marine mammal park, oceanarium, and animal theme park.",
-                attractionUrl:"http://seaworld.com/san-antonio/",
-                attractionImageUrl:"images/attractions/image-seaworldsalogo.png",
-                attractionVoteCount:"32",
-                attractionLastVoteAvatarUrl:"images/avatars/veronika.jpg",
-                attractionLastVoteName:"Kristy",    
-            },
-            {
-                attractionId: uuid.v4(),
-                attractionName:"SA Zoo",
-                attractionDescription:"The 35-acre zoo has a collection of over 3,500 animals representing 750 species.",
-                attractionUrl:"http://sazoo.org/",
-                attractionImageUrl:"images/attractions/image-sanantoniozoo.png",
-                attractionVoteCount:"45",
-                attractionLastVoteAvatarUrl:"images/avatars/daniel.jpg",
-                attractionLastVoteName:"Daniel",
-            },
-        ],
+        attractions: [],
+    };
+
+    componentDidMount() {
+        this._loadAttractionsFromServer();
+        setInterval(this._loadAttractionsFromServer, 5000);
+    };
+
+    _loadAttractionsFromServer = () => {
+        client.getAttractions((serverAttractions) => (
+            this.setState({ attractions: serverAttractions })   
+        ));
     };
 
     _handleCreateFormSubmit = (attraction) => {
