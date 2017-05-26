@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 window.client = (function () {
-  function getTimers(success) {
-    return fetch('/api/timers', {
+  function getAttractions(success) {
+    return fetch('/api/attractions', {
       headers: {
         Accept: 'application/json',
       },
@@ -11,8 +11,8 @@ window.client = (function () {
       .then(success);
   }
 
-  function createTimer(data) {
-    return fetch('/api/timers', {
+  function createAttraction(data) {
+    return fetch('/api/attractions', {
       method: 'post',
       body: JSON.stringify(data),
       headers: {
@@ -22,8 +22,8 @@ window.client = (function () {
     }).then(checkStatus);
   }
 
-  function updateTimer(data) {
-    return fetch('/api/timers', {
+  function updateAttraction(data) {
+    return fetch('/api/attractions', {
       method: 'put',
       body: JSON.stringify(data),
       headers: {
@@ -33,31 +33,9 @@ window.client = (function () {
     }).then(checkStatus);
   }
 
-  function deleteTimer(data) {
-    return fetch('/api/timers', {
+  function deleteAttraction(data) {
+    return fetch('/api/attractions', {
       method: 'delete',
-      body: JSON.stringify(data),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then(checkStatus);
-  }
-
-  function startTimer(data) {
-    return fetch('/api/timers/start', {
-      method: 'post',
-      body: JSON.stringify(data),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then(checkStatus);
-  }
-
-  function stopTimer(data) {
-    return fetch('/api/timers/stop', {
-      method: 'post',
       body: JSON.stringify(data),
       headers: {
         'Accept': 'application/json',
@@ -83,11 +61,9 @@ window.client = (function () {
   }
 
   return {
-    getTimers,
-    createTimer,
-    updateTimer,
-    startTimer,
-    stopTimer,
-    deleteTimer,
+    getAttractions,
+    createAttraction,
+    updateAttraction,
+    deleteAttraction,
   };
 }());
